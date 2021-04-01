@@ -1,0 +1,89 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {background-color: #f2f2f2;}
+  
+  #closeid:hover
+  {
+  background-color:whitesmoke;
+  }
+
+
+  #plusicon
+{
+    color: orange;
+}
+#showdivid:hover{
+    color: orange;
+    
+}
+#showdivid
+{
+    font-size:large; 
+    color: gray;
+}
+
+#showdivid
+{cursor: pointer;}
+
+#showme
+{
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+#closeid,#editid{
+    cursor: pointer;
+
+}
+
+@media only screen and (max-width: 800px){
+    #searchBox{
+        position: relative;
+        right:-1050px;
+        
+
+    }
+    
+}
+
+.example-form-field {
+    width: 100%;
+    color: #888;
+  }
+
+/* search text box */
+
+  #search
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid gray;
+  opacity: 0.5;
+
+}
+
+
+/* zoom when hover table  */
+table { box-sizing: border-box; }
+  
+td{ padding: 16px; min-width: 170px; }
+
+tr:hover { box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.3); cursor: pointer; }
+td{
+transition: transform .2s;
+}
+
+
+
+  

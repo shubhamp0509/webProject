@@ -1,0 +1,69 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+
+
+    <mat-nav-list class="matlist" >
+      <h1 style="margin:10px;">ToDoist &nbsp;</h1>
+      <a mat-list-item routerLink='today' routerLinkActive="list-item-active" ><i class="far fa-calendar-plus" style="margin-right: 10px;"></i>Today</a>
+      <a mat-list-item routerLink='upcoming' routerLinkActive="list-item-active"><i class="far fa-calendar-alt" style="margin-right: 10px;"></i>Upcoming</a>
+     
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar id="navColor" style="height: 50px; color: whitesmoke;">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span><i class="fas fa-home" id="homeid"  matTooltip="Home" routerLink="today" style="color: whitesmoke;"></i></span> &nbsp;&nbsp;
+      
+      <div class="spacer"></div>
+      <span> <i class="fas fa-plus" id="plusid" matTooltip="Add Task"  onclick="document.getElementById('id02').style.display='block'" style="margin-right:25px; color: whitesmoke;" ></i></span>
+
+
+      
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+<form [formGroup]="add" (ngSubmit)="collectTask()">
+  <div class="w3-container">
+   
+    <div id="id02" class="w3-modal">
+      <div class="w3-modal-content w3-animate-top w3-card-4" style="text-align: center;">
+  
+        <header class="w3-container " style="background-color:#c4271e;"> 
+          <span onclick="document.getElementById('id02').style.display='none'" 
+          class="w3-button w3-display-topright" style="background-color:#c4271e;">&times;</span>
+          <h2>Add Task</h2>
+        </header>
+        <br><br>
+        <div class="w3-container">
+          <input type="text" class="form-control" name="task" autocomplete="off" placeholder="Task" formControlName="task"
+          [(ngModel)]="some" #t><br><br>
+          <input type="date" id="birthday" name="date" formControlName="date" [(ngModel)]="date2" #d><br><br><br>
+        
+        </div>
+        <footer class="w3-container">
+          <button (click)=addTask(t.value,d.value)  [disabled]="!some || !date2" class="btn-sm" style="background-color: #e33800;  color: white; margin-bottom: 7px;" > Add </button>
+          <!-- <input type="reset" value="Cancel"  style="margin-left:15px; margin-bottom: 7px; " class="btn-sm " > -->
+      
+        </footer>
+      </div>
+    </div>
+  </div>
+  </form>
+

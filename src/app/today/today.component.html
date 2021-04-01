@@ -1,0 +1,192 @@
+    
+    
+    <div class="container">
+      <!-- <input type="text" name="task" id="searchBox" [(ngModel)]="task" (ngModelChange)="search()"  style="display: block;
+      margin-left: auto;
+      margin-right: auto ; top: -42px;   position: relative;
+        "  placeholder="search your task"> -->
+      <div class="today">
+        <!-- <div class="alert alert-success alert-dismissible" *ngIf="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Task Added 
+        </div> -->
+        <div class="alert alert-denger alert-dismissible" *ngIf="alert2">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Task Added 
+        </div>
+        <br>
+        <br>
+        <br>
+        <p id="today" style="font-size:x-large;">Today <span style="font-size: medium; color: gray;"  >{{today | date:'fullDate'}} </span>
+        </p>
+        <hr>
+        <span (click)="showdiv()" id="showdivid" *ngIf="showdivmodel" matTooltip="Add Task"><i class="fas fa-plus"
+            id="plusicon"></i>&nbsp;&nbsp;Add task </span>
+        <br>
+        <div *ngIf="showme" id="showme">
+          <form [formGroup]="add" (ngSubmit)="collectTask()">
+
+            <div class="form-group">
+              
+              <mat-form-field class="example-form-field">
+                <mat-label>Add Your Task...</mat-label>
+                <input matInput type="text" [(ngModel)]="value"  autocomplete="off" class="form-control" formControlName="task" [(ngModel)]="some" #t  >
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <br>
+            <div class="form-group">
+              
+              <input type="date" id="birthday" name="date"  formControlName="date" [(ngModel)]="date2" #d><br>
+            </div>
+
+            
+            <button (click)=addTask(t.value,d.value)  (click)="taskAddToastr()"  [disabled]="!some || !date2" class="btn-sm" style="background-color: #e33800;  color: white;"> Add </button>
+            <input type="reset" value="Cancel" (click)="hidediv() " style="margin-left:15px; " class="btn-sm " >
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="isZero">
+    
+    <div style="overflow-x:auto; padding-top: 45px ;" class="container"  >
+
+      <input type="text" name="task" [(ngModel)]="task"  (ngModelChange)="search()" id="search" autocomplete="off" placeholder="Search Your Task..." *ngIf="showsearch">
+
+      <table style="padding-top: 15px;">
+        
+        <tr *ngFor="let item of arry | paginate: { id:'listing_pagination',
+        itemsPerPage:5,
+        currentPage: page1,
+        totalItems: totalrecord }" >
+           <td> <input type="checkbox" name="{{item.id}}" [value]="item.id" (change)="getIdChecked($event,item._id)"/> </td> 
+        
+          <td>{{item.task}}</td>
+          <td>{{item.date.toString().split("T00:00:00.000Z").slice(0, 4).join(" ")}}</td>
+    
+          <td><a onclick="document.getElementById('confirmdel').style.display='block'"><i class="fas fa-trash" matTooltip="Delete" (click)="sendId(item._id)"  style="color: red;" id="closeid"></i></a>&nbsp;
+            &nbsp;&nbsp;&nbsp; <i class="fas fa-edit" id="editid" style="color: green;"  matTooltip="Edit" onclick="document.getElementById('id01').style.display='block'" (click)="getValueOfTask(item._id)">
+            
+        </i> 
+        
+      </td>
+          <hr>
+    
+    
+      </table><br>
+      <div style="margin-left: 40%;">
+      <button (click)=deleteSelectedTask()   class="btn-sm" style="background-color: #e33800;  color: white;"> Delete Selected Task</button>
+      </div>
+      <div style="margin-top: 10%;">
+        <pagination-controls id="listing_pagination" maxsize="5" directionlinks="true" (pageChange) ="page1 = $event"  style="padding-left: 10px; text-align: center;"></pagination-controls>
+      </div>
+
+      
+    </div>
+
+  </div>
+
+
+  <div *ngIf="!isZero">
+    
+          
+      <img [src]="imagePath" style="display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%; height: 300px; margin-top: 150px;">
+      
+
+  </div>
+
+  
+
+
+
+<br><br><br><br>
+
+ 
+<form [formGroup]="add" (ngSubmit)="updatedCollection()">
+  <div class="w3-container">
+   
+    <div id="id01" class="w3-modal" >
+      <div class="w3-modal-content w3-animate-top w3-card-4" style="text-align: center; ">
+  
+        <header class="w3-container " style="background-color:#c4271e;"> 
+          <span onclick="document.getElementById('id01').style.display='none'" 
+          class="w3-button w3-display-topright" style="background-color:#c4271e;">X</span>
+          <h2>Update Task</h2>
+        </header>
+        <br><br>
+        <div class="w3-container">
+          <input type="text" class="form-control" name="task" placeholder="Name" formControlName="task" #t><br><br>
+          <!-- <input type="date" id="dateupdate" name="date" formControlDate="date"><br><br><br> -->
+        
+        </div>
+        <footer class="w3-container">
+          <button type="submit"  class="btn btn-danger w3-center"  (click)="taskUpdateToastr()"  style="margin-bottom: 15px; ">Submit</button>
+      
+        </footer>
+      </div>
+    </div>
+  </div>
+  </form>
+
+
+
+  <!-- Conformation  delete -->
+
+  <div class="w3-container">
+   
+    <div id="confirmdel" class="w3-modal" >
+      <div class="w3-modal-content w3-animate-top w3-card-4" style="text-align: center;">
+  
+        <header class="w3-container" style="background-color: #d1604b;color: whitesmoke;"> 
+          <span onclick="document.getElementById('confirmdel').style.display='none'" 
+          class="w3-button w3-display-topright" style="background-color:#d1604b ;" id="closemark">X</span>
+          <p style="font-size: large; font-family:Arial, Helvetica, sans-serif; padding: 10px; font-size: large;">Delete Task</p>
+        </header>
+        <br><br>
+        <div class="w3-container" style="margin-bottom: 15px;">
+          <h2>Are You Really Sure?</h2>
+          <button mat-raised-button style="background-color: tomato; margin-right: 30px;" (click)="closeFun(id)" onclick="document.getElementById('confirmdel').style.display='none'"  (click)=" taskDeleteToastr()">Confirm</button>
+          <button mat-raised-button  onclick="document.getElementById('confirmdel').style.display='none'">Cancle</button>
+
+        </div>
+        <footer class="w3-container">
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
